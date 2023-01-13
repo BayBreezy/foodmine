@@ -1,0 +1,66 @@
+<main class="mx-auto max-w-6xl py-5">
+  <div class="flex flex-col lg:flex-row gap-10 px-3 lg:px-0">
+    <img
+      src="{{ food.imageUrl }}"
+      alt="{{ food.name }}'s Image"
+      class="object-cover lg:w-1/2 w-full lg:h-[500px] rounded-lg"
+    />
+    <div class="lg:w-1/2 w-full">
+      <div class="flex items-center justify-between">
+        <h1 class="font-semibold grow text-2xl">{{ food.name }}</h1>
+        <button
+          class="flex items-center justify-center p-2 rounded-full bg-white shadow-md"
+        >
+          <ic-icon
+            size="22"
+            [ngClass]="food.favorite ? 'text-red-500' : 'text-gray-600'"
+            [icon]="food.favorite ? heartFilled : heartRegular"
+          ></ic-icon>
+        </button>
+      </div>
+      <!-- Tags -->
+      <ul class="flex items-center gap-x-2 mt-2" *ngIf="food.tags">
+        <li *ngFor="let tag of food.tags; let i = index">
+          <span
+            class="group text-xs font-light capitalize p-1 px-2 rounded-full bg-gray-100 cursor-pointer hover:text-primary hover:bg-primary-100"
+          >
+            <span>
+              {{ tag }}
+            </span>
+          </span>
+        </li>
+      </ul>
+      <p class="text-gray-700 mt-4 text-lg">{{ food.price | currency }}</p>
+
+      <!-- Rating -->
+
+      <ul class="flex items-center mt-2">
+        <ic-icon
+          *ngFor="let star of [1, 2, 3, 4, 5]; let i = index"
+          [icon]="starFilled"
+          size="17"
+          [ngClass]="i <= food.stars - 1 ? 'text-yellow-500' : 'text-gray-500'"
+        >
+          {{ i }}
+        </ic-icon>
+        <span class="inline-flex text-sm text-gray-500 ml-1">
+          {{ food.stars }}/5 rating
+        </span>
+      </ul>
+
+      <!-- Cook time -->
+      <div class="flex items-center text-sm gap-x-2 mt-4">
+        <!-- <ic-icon class="text-gray-500" size="17" [icon]="clockIcon"></ic-icon> -->
+        <span class="text-gray-600">Cook time </span>
+        <span class="text-gray-700 font-medium">{{ food.cookTime }} mins</span>
+      </div>
+
+      <button
+        (click)="addToCart()"
+        class="inline-block w-full lg:w-1/2 mt-8 text-sm bg-primary hover:bg-primary-500 transition-all text-white px-4 py-3 rounded-lg"
+      >
+        Add To Cart
+      </button>
+    </div>
+  </div>
+</main>

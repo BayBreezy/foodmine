@@ -1,0 +1,64 @@
+<div class="group relative">
+  <button
+    class="absolute z-10 top-3 right-3 flex items-center justify-center p-2 rounded-full bg-white shadow-md"
+  >
+    <ic-icon
+      size="22"
+      [ngClass]="food.favorite ? 'text-red-500' : 'text-gray-600'"
+      [icon]="food.favorite ? heartFilled : heartRegular"
+    ></ic-icon>
+  </button>
+  <button
+    (click)="addToCart()"
+    title="Add {{ food.name }} to cart"
+    class="absolute z-10 top-14 right-3 flex items-center justify-center p-2 rounded-full bg-white shadow-md"
+  >
+    <ic-icon size="22" class="text-gray-600" [icon]="cartIcon"></ic-icon>
+  </button>
+  <a routerLink="/food/{{ food.id }}" class="relative">
+    <img
+      [src]="food.imageUrl"
+      alt="Food Image"
+      class="w-full h-72 z-0 object-cover rounded-md shadow-sm group-hover:opacity-70 group-focus:opacity-70 transition"
+    />
+    <div
+      class="absolute rounded-b-md inset-x-0 bottom-0 left-0 p-5 bg-gradient-to-t from-black/80 via-black/60 to-black/5 text-white"
+    >
+      <p class="text-xs">ORIGINS</p>
+      <ul class="flex items-center gap-x-2 mt-2">
+        <li
+          class="bg-white text-gray-700 rounded-full shadow px-2 py-1 text-xs capitalize font-medium"
+          *ngFor="let o of food.origins; let i = index"
+        >
+          {{ o }}
+        </li>
+      </ul>
+    </div>
+  </a>
+  <div class="p-2">
+    <p class="text-lg font-medium">{{ food.name }}</p>
+    <p class="text-gray-600 text-sm font-medium">
+      {{ food.price | currency }}
+    </p>
+
+    <div class="flex items-center justify-between">
+      <ul class="flex items-center mt-2">
+        <ic-icon
+          *ngFor="let star of [1, 2, 3, 4, 5]; let i = index"
+          [icon]="starFilled"
+          size="17"
+          [ngClass]="i <= food.stars - 1 ? 'text-yellow-500' : 'text-gray-500'"
+        >
+          {{ i }}
+        </ic-icon>
+        <span class="inline-flex text-sm text-gray-500 ml-1">
+          {{ food.stars }}/5 rating
+        </span>
+      </ul>
+      <div class="flex items-center text-sm gap-x-2">
+        <ic-icon class="text-gray-500" size="17" [icon]="clockIcon"></ic-icon>
+        <span class="text-gray-700">{{ food.cookTime }} mins</span>
+      </div>
+    </div>
+  </div>
+</div>

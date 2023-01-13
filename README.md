@@ -1,5 +1,7 @@
 # Foodmine
 
+Shoutout to Code With Nasir for this app - https://www.youtube.com/@CodeWithNasir
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.1.0.
 
 ## Development server

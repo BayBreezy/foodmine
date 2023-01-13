@@ -1,0 +1,60 @@
+<main class="mx-auto max-w-6xl py-5 md:px-3">
+  <div class="flex flex-col lg:flex-row items-center justify-between gap-5">
+    <div class="relative w-full px-5 lg:px-0">
+      <ic-icon
+        size="22"
+        class="absolute top-1/2 -translate-y-1/2 left-7 lg:left-2.5 text-gray-500 pointer-events-none"
+        [icon]="searchIcon"
+      ></ic-icon>
+      <input
+        type="search"
+        [(ngModel)]="searchTerm"
+        (input)="searchFood()"
+        (change)="searchFood()"
+        name="search"
+        placeholder="Search here..."
+        id="search"
+        class="pl-9 border-gray-300 rounded-lg py-3 w-full lg:w-[370px] block focus:border-primary focus:ring-primary/30 transition hover:border-gray-400 focus:ring"
+      />
+    </div>
+    <ul
+      class="flex items-center lg:justify-end lg:gap-2 gap-3 flex-wrap px-5 lg:px-0 w-full"
+    >
+      <li>
+        <span
+          (click)="setTag('All')"
+          class="group text-sm font-light capitalize p-1 px-2 rounded-full bg-gray-100 cursor-pointer hover:text-primary hover:bg-primary-100"
+          [class]="
+            currentTag == 'All' ? 'bg-primary-100 text-primary ' : 'bg-gray-100'
+          "
+        >
+          <span> All </span>
+        </span>
+      </li>
+      <li *ngFor="let tag of tags; let i = index">
+        <span
+          (click)="setTag(tag.name)"
+          class="group text-sm font-light capitalize p-1 px-2 rounded-full bg-gray-100 cursor-pointer hover:text-primary hover:bg-primary-100"
+          [class]="
+            tag.name == currentTag
+              ? 'bg-primary-100 text-primary '
+              : 'bg-gray-100'
+          "
+        >
+          <span>
+            {{ tag.name }}
+            <span class="text-xs"> ({{ tag.count }}) </span>
+          </span>
+        </span>
+      </li>
+    </ul>
+  </div>
+  <div
+    class="grid grid-cols-1 px-5 lg:px-0 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-5"
+  >
+    <!-- Food Card -->
+    <app-food-card *ngFor="let food of foods" [food]="food"></app-food-card>
+  </div>
+
+  <app-empty message="No items found" *ngIf="!foods.length"></app-empty>
+</main>
